@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Habit Manager</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Habit Manager</string>
+    <string name="nav_header_subtitle">sasdenyt@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_communication">Communicate</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_calendar">Calendar</string>
+    <string name="menu_list">List</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_share">Share</string>
+</resources>
