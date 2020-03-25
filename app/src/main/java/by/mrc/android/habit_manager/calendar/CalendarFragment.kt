@@ -4,28 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import by.mrc.android.habit_manager.R
+import androidx.lifecycle.ViewModelProvider
+import by.mrc.android.habit_manager.databinding.FragmentCalendarBinding
 
+// Here user interacts with calendar
 class CalendarFragment : Fragment() {
 
-    private lateinit var calendarViewModel: CalendarViewModel
+    // Initialize ViewModel
+    private val calendarViewModel: CalendarViewModel by lazy {
+        ViewModelProvider(this).get(CalendarViewModel::class.java)
+    }
+    private lateinit var binding: FragmentCalendarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        calendarViewModel =
-            ViewModelProviders.of(this).get(CalendarViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_calendar, container, false)
-        val textView: TextView = root.findViewById(R.id.text_calendar)
+        // Initialize Binding
+        binding = FragmentCalendarBinding.inflate(inflater)
+        // Sync ViewModel and UI
         calendarViewModel.text.observe(this, Observer {
-            textView.text = it
+            binding.textCalendar.text = it
         })
-        return root
+        return binding.root
     }
 }

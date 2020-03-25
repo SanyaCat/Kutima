@@ -4,28 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import by.mrc.android.habit_manager.R
+import androidx.lifecycle.ViewModelProvider
+import by.mrc.android.habit_manager.databinding.FragmentShareBinding
 
+// Here user can share info about application
 class ShareFragment : Fragment() {
 
-    private lateinit var shareViewModel: ShareViewModel
+    // Initialize ViewModel
+    private val shareViewModel: ShareViewModel by lazy {
+        ViewModelProvider(this).get(ShareViewModel::class.java)
+    }
+    private lateinit var binding: FragmentShareBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        shareViewModel =
-            ViewModelProviders.of(this).get(ShareViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_share, container, false)
-        val textView: TextView = root.findViewById(R.id.text_share)
+        // Initialize Binding
+        binding = FragmentShareBinding.inflate(inflater)
+        // Sync ViewModel and UI
         shareViewModel.text.observe(this, Observer {
-            textView.text = it
+            binding.textShare.text = it
         })
-        return root
+        return binding.root
     }
 }
