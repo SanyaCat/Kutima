@@ -1,6 +1,9 @@
 package by.mrc.android.habit_manager
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -10,44 +13,148 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavOptions
+//import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import by.mrc.android.habit_manager.databinding.ActivityMainBinding
+//import by.mrc.android.habit_manager.databinding.ActivityMainBinding
+import by.mrc.android.habit_manager.settings.SettingsThemeEnum
+import by.mrc.android.habit_manager.settings.SettingsValues
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import java.io.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var sharedPref: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+    private lateinit var gsonBuilder: GsonBuilder
+    private lateinit var gson: Gson
 
+    companion object {
+        lateinit var context: Context
+    }
+
+    @SuppressLint("NewApi", "WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        context = this
         binding = DataBindingUtil.setContentView(
             this, R.layout.activity_main
         )
+
+        //binding = ActivityMainBinding.inflate(layoutInflater)
 
         // Toolbar (upper line)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        // Action "add" button
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            // TODO("Add new Habit")
-            Snackbar.make(view, "New habit is adding...", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-
         // Navigation
         val navController = this.findNavController(R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(toolbar, navController, binding.drawerLayout)
         binding.navView.setupWithNavController(navController)
+
+        try {
+            sharedPref = getSharedPreferences("settings_values", Context.MODE_APPEND)
+            gsonBuilder = GsonBuilder()
+            gson = gsonBuilder.create()
+            val value = gson.fromJson(sharedPref.getString("SETTINGS", ""), SettingsValues::class.java)
+            SettingsValues.theme = value.theme
+        } catch (e: Exception) {
+            SettingsValues.theme = SettingsThemeEnum.GREEN
+        } finally {
+//            ois.close()
+        }
+
+        // Themes
+        when (SettingsValues.theme) {
+            SettingsThemeEnum.GREEN -> {
+                setTheme(R.style.Theme_Green)
+                toolbar.background = getDrawable(R.color.greenPrimary)
+                //fab.backgroundTintList = getColorStateList(R.color.greenPrimary)
+                binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_green)
+                binding.drawerLayout.background = getDrawable(R.color.lightBackground)
+                binding.navView.background = getDrawable(R.color.lightBackground)
+                binding.navView.itemTextColor = getColorStateList(R.color.lightText)
+                binding.navView.itemIconTintList = getColorStateList(R.color.lightText)
+            }
+            SettingsThemeEnum.DARK_GREEN -> {
+                setTheme(R.style.Theme_Dark_Green)
+                toolbar.background = getDrawable(R.color.greenPrimary)
+                //fab.backgroundTintList = getColorStateList(R.color.greenPrimary)
+                binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_green)
+                binding.drawerLayout.background = getDrawable(R.color.darkBackground)
+                binding.navView.background = getDrawable(R.color.darkBackground)
+                binding.navView.itemTextColor = getColorStateList(R.color.darkText)
+                binding.navView.itemIconTintList = getColorStateList(R.color.darkText)
+            }
+            SettingsThemeEnum.ORANGE -> {
+                setTheme(R.style.Theme_Orange)
+                toolbar.background = getDrawable(R.color.orangePrimary)
+                //fab.backgroundTintList = getColorStateList(R.color.orangePrimary)
+                binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_orange)
+                binding.drawerLayout.background = getDrawable(R.color.lightBackground)
+                binding.navView.background = getDrawable(R.color.lightBackground)
+                binding.navView.itemTextColor = getColorStateList(R.color.lightText)
+                binding.navView.itemIconTintList = getColorStateList(R.color.lightText)
+            }
+            SettingsThemeEnum.DARK_ORANGE -> {
+                setTheme(R.style.Theme_Dark_Orange)
+                toolbar.background = getDrawable(R.color.orangePrimary)
+                //fab.backgroundTintList = getColorStateList(R.color.orangePrimary)
+                binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_orange)
+                binding.drawerLayout.background = getDrawable(R.color.darkBackground)
+                binding.navView.background = getDrawable(R.color.darkBackground)
+                binding.navView.itemTextColor = getColorStateList(R.color.darkText)
+                binding.navView.itemIconTintList = getColorStateList(R.color.darkText)
+            }
+            SettingsThemeEnum.PURPLE -> {
+                setTheme(R.style.Theme_Purple)
+                toolbar.background = getDrawable(R.color.purplePrimary)
+                //fab.backgroundTintList = getColorStateList(R.color.purplePrimary)
+                binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_purple)
+                binding.drawerLayout.background = getDrawable(R.color.lightBackground)
+                binding.navView.background = getDrawable(R.color.lightBackground)
+                binding.navView.itemTextColor = getColorStateList(R.color.lightText)
+                binding.navView.itemIconTintList = getColorStateList(R.color.lightText)
+            }
+            SettingsThemeEnum.DARK_PURPLE -> {
+                setTheme(R.style.Theme_Dark_Purple)
+                toolbar.background = getDrawable(R.color.purplePrimary)
+                //fab.backgroundTintList = getColorStateList(R.color.purplePrimary)
+                binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_purple)
+                binding.drawerLayout.background = getDrawable(R.color.darkBackground)
+                binding.navView.background = getDrawable(R.color.darkBackground)
+                binding.navView.itemTextColor = getColorStateList(R.color.darkText)
+                binding.navView.itemIconTintList = getColorStateList(R.color.darkText)
+            }
+        }
+    }
+
+    override fun onDestroy() {
+//        fos = openFileOutput("settings_values", Context.MODE_PRIVATE)
+//        oos = ObjectOutputStream(fos)
+//        oos.writeObject(SettingsValues)
+//        oos.close()
+        sharedPref = getSharedPreferences("settings_values", Context.MODE_PRIVATE)
+        editor = sharedPref.edit()
+        gsonBuilder = GsonBuilder()
+        gson = gsonBuilder.create()
+        val value = gson.toJson(SettingsValues)
+        editor.putString("SETTINGS", value)
+        editor.apply()
+
+        super.onDestroy()
     }
 
     // Creating menu
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        // TODO("Click share")
+        // Inflate the menu; this adds items to the action bar if it is present
         menuInflater.inflate(R.menu.main, menu)
         return true
     }

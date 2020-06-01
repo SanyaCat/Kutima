@@ -9,4 +9,6 @@
     <string name="menu_settings">Настройки</string>
 
     <string name="share_intent_content">Прекрасное приложение :)</string>
+
+    <string name="settings_theme">Тема</string>
 </resources>

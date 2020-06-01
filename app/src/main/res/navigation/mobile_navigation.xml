@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_calendar">
+    app:startDestination="@id/nav_list">
 
     <fragment
         android:id="@+id/nav_calendar"
@@ -15,7 +16,21 @@
         android:id="@+id/nav_list"
         android:name="by.mrc.android.habit_manager.list.ListFragment"
         android:label="@string/menu_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_nav_list_to_nav_add_habit"
+            app:destination="@id/nav_add_habit"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_add_habit"
+        android:name="by.mrc.android.habit_manager.list.edit_habit.EditHabitFragment"
+        android:label="Add Habit"
+        tools:layout="@layout/fragment_edit_habit" />
 
     <fragment
         android:id="@+id/nav_settings"

@@ -26,7 +26,7 @@ class CalendarFragment : Fragment() {
         // Initialize Binding
         binding = FragmentCalendarBinding.inflate(inflater)
         // Sync ViewModel and UI
-        calendarViewModel.text.observe(this, Observer {
+        calendarViewModel.text.observe(viewLifecycleOwner, Observer {
             binding.textCalendar.text = it
         })
         return binding.root
