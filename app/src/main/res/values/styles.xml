@@ -1,11 +1,11 @@
 <resources>
 
-    <style name="Theme_Light" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Theme_Light" parent="Theme.AppCompat.Light">
         <item name="android:textColor">@color/lightText</item>
     </style>
 
-    <style name="Theme_Dark" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="android:textColor">@color/darkText</item>
+    <style name="Theme_Dark" parent="Theme.AppCompat.NoActionBar">
+<!--        <item name="android:textColor">@color/darkText</item>-->
     </style>
 
     <style name="Theme_Green" parent="Theme_Light">

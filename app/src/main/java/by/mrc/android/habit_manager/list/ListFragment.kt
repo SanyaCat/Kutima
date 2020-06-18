@@ -19,8 +19,8 @@ import by.mrc.android.habit_manager.data.Habit
 import by.mrc.android.habit_manager.databinding.FragmentListBinding
 import by.mrc.android.habit_manager.list.edit_habit.EditHabitFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
-//import by.mrc.android.habit_manager.databinding.FragmentListBinding
+import com.google.gson.Gson
+import java.util.*
 
 // Here list of habits is showing
 class ListFragment : Fragment() {
@@ -29,6 +29,7 @@ class ListFragment : Fragment() {
     private val listViewModel: ListViewModel by lazy {
         ViewModelProvider(this).get(ListViewModel::class.java)
     }
+
     private lateinit var binding: FragmentListBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: HabitListAdapter
@@ -48,12 +49,14 @@ class ListFragment : Fragment() {
                 EditHabitFragment.id = id
                 val currentHabit = findHabitById(id)
                 EditHabitFragment.name = currentHabit.name
+                EditHabitFragment.description = currentHabit.description
+                EditHabitFragment.color = currentHabit.color
+                EditHabitFragment.targetTime = currentHabit.targetTime
                 EditHabitFragment.status = EditHabitFragment.EditHabitStatusEnum.EditHabitInProgress
+
                 findNavController().navigate(R.id.action_nav_list_to_nav_add_habit)
-                //Toast.makeText(MainActivity.context, "Editing $id...", Toast.LENGTH_SHORT).show()
             }, HabitListAdapter.DeleteHabitButtonListener { id ->
                 // Delete Habit Button
-                // TODO("Delete Habit")
                 // TODO("Are you sure you want to delete habit?")
                 val currentHabit = findHabitById(id)
                 Toast.makeText(MainActivity.context, "Deleting ${currentHabit.name}...", Toast.LENGTH_SHORT).show()
@@ -67,13 +70,12 @@ class ListFragment : Fragment() {
         // Add Habit Button
         val fab: FloatingActionButton = binding.fab
         fab.setOnClickListener { view ->
-            // TODO("Add new Habit")
             EditHabitFragment.status = EditHabitFragment.EditHabitStatusEnum.AddHabitInProgress
             view.findNavController().navigate(R.id.action_nav_list_to_nav_add_habit)
         }
 
-        listViewModel.habits.observe(viewLifecycleOwner, Observer { //habits ->
-            it?.let { adapter.submitList(it)}
+        listViewModel.habits.observe(viewLifecycleOwner, Observer {
+            it?.let { adapter.submitList(it) }
         })
 
         return binding.root
@@ -88,6 +90,7 @@ class ListFragment : Fragment() {
             }
         }
         if (current == null) {
+            @Suppress("UNREACHABLE_CODE")
             return throw Resources.NotFoundException("There is no habit with such ID")
         }
         return current
@@ -97,31 +100,53 @@ class ListFragment : Fragment() {
         super.onResume()
 
         when (EditHabitFragment.status) {
+            // When habit is adding
             EditHabitFragment.EditHabitStatusEnum.AddHabitSucceed -> {
                 val id = if (listViewModel.habits.value!!.isNotEmpty()) (listViewModel.habits.value!!.last().id + 1) else 0
-                listViewModel.insert(
-                    Habit(
-                        name = EditHabitFragment.name.toString(),
+                val gson = Gson()
+
+                listViewModel.insert( Habit(
                         id = id,
-                        timeToComplete = 66
-                    )
-                )
+                        name = EditHabitFragment.name.toString(),
+                        description = EditHabitFragment.description.toString(),
+                        color = EditHabitFragment.color.toString(),
+                        targetTime = EditHabitFragment.targetTime!!,
+                        progress = gson.toJson(MutableList(0) { Date(0) })
+                ) )
+
                 EditHabitFragment.id = null
                 EditHabitFragment.name = null
+                EditHabitFragment.description = null
+                EditHabitFragment.color = null
+                EditHabitFragment.targetTime = null
                 EditHabitFragment.status = null
             }
+
+            // When habit is editing
             EditHabitFragment.EditHabitStatusEnum.EditHabitSucceed -> {
                 val currentHabit = findHabitById(EditHabitFragment.id!!)
                 currentHabit.name = EditHabitFragment.name!!
+                currentHabit.description = EditHabitFragment.description
+                currentHabit.color = EditHabitFragment.color!!
+                currentHabit.targetTime = EditHabitFragment.targetTime!!
+
                 listViewModel.update(currentHabit)
+
                 EditHabitFragment.id = null
                 EditHabitFragment.name = null
+                EditHabitFragment.description = null
+                EditHabitFragment.color = null
+                EditHabitFragment.targetTime = null
                 EditHabitFragment.status = null
             }
+
+            // When habit editing/adding is canceled
             else -> {
-                // Cancel Editing/Adding
                 EditHabitFragment.id = null
                 EditHabitFragment.name = null
+                EditHabitFragment.description = null
+                EditHabitFragment.color = null
+                EditHabitFragment.targetTime = null
                 EditHabitFragment.status = null
             }
         }

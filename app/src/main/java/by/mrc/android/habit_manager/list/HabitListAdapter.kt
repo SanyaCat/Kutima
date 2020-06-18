@@ -1,12 +1,19 @@
 package by.mrc.android.habit_manager.list
 
+import android.graphics.Color
+import android.provider.Settings
 import android.view.*
+import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.mrc.android.habit_manager.MainActivity
+import by.mrc.android.habit_manager.R
 import by.mrc.android.habit_manager.data.Habit
+import by.mrc.android.habit_manager.data.HabitColorEnum
 import by.mrc.android.habit_manager.databinding.HabitListItemBinding
+import by.mrc.android.habit_manager.settings.SettingsValues
+import java.text.DecimalFormat
 
 class HabitListAdapter(
     val editHabitListener: EditHabitButtonListener,
@@ -47,5 +54,17 @@ class HabitListAdapter(
         binding.habitListItemName.text = current.name
         binding.habitListItemEditButton.setOnClickListener { editHabitListener.onClick(current) }
         binding.habitListItemDeleteButton.setOnClickListener { deleteHabitListener.onClick(current) }
+        val color = when (current.color) {
+            HabitColorEnum.RED.toString() -> Color.rgb(213,0,0)
+            HabitColorEnum.ORANGE.toString() -> Color.rgb(255,171,0)
+            HabitColorEnum.YELLOW.toString() -> Color.rgb(255,214,0)
+            HabitColorEnum.GREEN.toString() -> Color.rgb(0,200,83)
+            HabitColorEnum.AQUA.toString() -> Color.rgb(0,184,212)
+            HabitColorEnum.BLUE.toString() -> Color.rgb(41,98,255)
+            HabitColorEnum.PURPLE.toString() -> Color.rgb(170,0,255)
+            else -> null
+        }
+        if (color != null)
+            binding.habitListItemName.setTextColor(color)
     }
 }

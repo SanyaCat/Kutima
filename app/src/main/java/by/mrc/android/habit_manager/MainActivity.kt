@@ -76,7 +76,6 @@ class MainActivity : AppCompatActivity() {
             SettingsThemeEnum.GREEN -> {
                 setTheme(R.style.Theme_Green)
                 toolbar.background = getDrawable(R.color.greenPrimary)
-                //fab.backgroundTintList = getColorStateList(R.color.greenPrimary)
                 binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_green)
                 binding.drawerLayout.background = getDrawable(R.color.lightBackground)
                 binding.navView.background = getDrawable(R.color.lightBackground)
@@ -86,17 +85,15 @@ class MainActivity : AppCompatActivity() {
             SettingsThemeEnum.DARK_GREEN -> {
                 setTheme(R.style.Theme_Dark_Green)
                 toolbar.background = getDrawable(R.color.greenPrimary)
-                //fab.backgroundTintList = getColorStateList(R.color.greenPrimary)
                 binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_green)
-                binding.drawerLayout.background = getDrawable(R.color.darkBackground)
-                binding.navView.background = getDrawable(R.color.darkBackground)
-                binding.navView.itemTextColor = getColorStateList(R.color.darkText)
-                binding.navView.itemIconTintList = getColorStateList(R.color.darkText)
+//                binding.drawerLayout.background = getDrawable(R.color.darkBackground)
+//                binding.navView.background = getDrawable(R.color.darkBackground)
+//                binding.navView.itemTextColor = getColorStateList(R.color.darkText)
+//                binding.navView.itemIconTintList = getColorStateList(R.color.darkText)
             }
             SettingsThemeEnum.ORANGE -> {
                 setTheme(R.style.Theme_Orange)
                 toolbar.background = getDrawable(R.color.orangePrimary)
-                //fab.backgroundTintList = getColorStateList(R.color.orangePrimary)
                 binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_orange)
                 binding.drawerLayout.background = getDrawable(R.color.lightBackground)
                 binding.navView.background = getDrawable(R.color.lightBackground)
@@ -106,17 +103,15 @@ class MainActivity : AppCompatActivity() {
             SettingsThemeEnum.DARK_ORANGE -> {
                 setTheme(R.style.Theme_Dark_Orange)
                 toolbar.background = getDrawable(R.color.orangePrimary)
-                //fab.backgroundTintList = getColorStateList(R.color.orangePrimary)
                 binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_orange)
-                binding.drawerLayout.background = getDrawable(R.color.darkBackground)
-                binding.navView.background = getDrawable(R.color.darkBackground)
-                binding.navView.itemTextColor = getColorStateList(R.color.darkText)
-                binding.navView.itemIconTintList = getColorStateList(R.color.darkText)
+//                binding.drawerLayout.background = getDrawable(R.color.darkBackground)
+//                binding.navView.background = getDrawable(R.color.darkBackground)
+//                binding.navView.itemTextColor = getColorStateList(R.color.darkText)
+//                binding.navView.itemIconTintList = getColorStateList(R.color.darkText)
             }
             SettingsThemeEnum.PURPLE -> {
                 setTheme(R.style.Theme_Purple)
                 toolbar.background = getDrawable(R.color.purplePrimary)
-                //fab.backgroundTintList = getColorStateList(R.color.purplePrimary)
                 binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_purple)
                 binding.drawerLayout.background = getDrawable(R.color.lightBackground)
                 binding.navView.background = getDrawable(R.color.lightBackground)
@@ -126,12 +121,11 @@ class MainActivity : AppCompatActivity() {
             SettingsThemeEnum.DARK_PURPLE -> {
                 setTheme(R.style.Theme_Dark_Purple)
                 toolbar.background = getDrawable(R.color.purplePrimary)
-                //fab.backgroundTintList = getColorStateList(R.color.purplePrimary)
                 binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_purple)
-                binding.drawerLayout.background = getDrawable(R.color.darkBackground)
-                binding.navView.background = getDrawable(R.color.darkBackground)
-                binding.navView.itemTextColor = getColorStateList(R.color.darkText)
-                binding.navView.itemIconTintList = getColorStateList(R.color.darkText)
+//                binding.drawerLayout.background = getDrawable(R.color.darkBackground)
+//                binding.navView.background = getDrawable(R.color.darkBackground)
+//                binding.navView.itemTextColor = getColorStateList(R.color.darkText)
+//                binding.navView.itemIconTintList = getColorStateList(R.color.darkText)
             }
         }
     }
