@@ -1,13 +1,12 @@
 package by.mrc.android.habit_manager.list.edit_habit
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import by.mrc.android.habit_manager.data.HabitColorEnum
 import by.mrc.android.habit_manager.databinding.FragmentEditHabitBinding
 
 class EditHabitFragment : DialogFragment() {
@@ -20,17 +19,13 @@ class EditHabitFragment : DialogFragment() {
         Canceled
     }
 
-    private val editHabitViewModel: EditHabitViewModel by lazy {
-        ViewModelProvider(this).get(EditHabitViewModel::class.java)
-    }
-
     private lateinit var binding: FragmentEditHabitBinding
 
     companion object {
         var id: Int? = null
         var name: String? = null
         var description: String? = null
-        var color: String? = null
+        var color: Int? = null
         var targetTime: Int? = null
         var status: EditHabitStatusEnum? = null
     }
@@ -61,14 +56,14 @@ class EditHabitFragment : DialogFragment() {
                 description = binding.inputDescriptionEditText.text.toString()
                 targetTime = binding.inputTimeEditText.text.toString().toInt()
                 color = when {
-                    binding.radioButtonRed.isChecked -> HabitColorEnum.RED.toString()
-                    binding.radioButtonOrange.isChecked -> HabitColorEnum.ORANGE.toString()
-                    binding.radioButtonYellow.isChecked -> HabitColorEnum.YELLOW.toString()
-                    binding.radioButtonGreen.isChecked -> HabitColorEnum.GREEN.toString()
-                    binding.radioButtonAqua.isChecked -> HabitColorEnum.AQUA.toString()
-                    binding.radioButtonBlue.isChecked -> HabitColorEnum.BLUE.toString()
-                    binding.radioButtonPurple.isChecked -> HabitColorEnum.PURPLE.toString()
-                    else -> HabitColorEnum.BLACK.toString()
+                    binding.radioButtonRed.isChecked -> Color.rgb(213, 0, 0)
+                    binding.radioButtonOrange.isChecked -> Color.rgb(255, 171, 0)
+                    binding.radioButtonYellow.isChecked -> Color.rgb(255, 214, 0)
+                    binding.radioButtonGreen.isChecked -> Color.rgb(0, 200, 83)
+                    binding.radioButtonAqua.isChecked -> Color.rgb(0, 184, 212)
+                    binding.radioButtonBlue.isChecked -> Color.rgb(41, 98, 255)
+                    binding.radioButtonPurple.isChecked -> Color.rgb(170, 0, 255)
+                    else -> Color.BLACK
                 }
 
                 if (status == EditHabitStatusEnum.AddHabitInProgress) status =
@@ -95,13 +90,13 @@ class EditHabitFragment : DialogFragment() {
         if (targetTime != null)
             binding.inputTimeEditText.setText(targetTime.toString())
         when (color) {
-            HabitColorEnum.RED.toString() -> binding.radioButtonRed.isChecked = true
-            HabitColorEnum.ORANGE.toString() -> binding.radioButtonOrange.isChecked = true
-            HabitColorEnum.YELLOW.toString() -> binding.radioButtonYellow.isChecked = true
-            HabitColorEnum.GREEN.toString() -> binding.radioButtonGreen.isChecked = true
-            HabitColorEnum.AQUA.toString() -> binding.radioButtonAqua.isChecked = true
-            HabitColorEnum.BLUE.toString() -> binding.radioButtonBlue.isChecked = true
-            HabitColorEnum.PURPLE.toString() -> binding.radioButtonPurple.isChecked = true
+            Color.rgb(213, 0, 0) -> binding.radioButtonRed.isChecked = true
+            Color.rgb(255, 171, 0) -> binding.radioButtonOrange.isChecked = true
+            Color.rgb(255, 214, 0) -> binding.radioButtonYellow.isChecked = true
+            Color.rgb(0, 200, 83) -> binding.radioButtonGreen.isChecked = true
+            Color.rgb(0, 184, 212) -> binding.radioButtonAqua.isChecked = true
+            Color.rgb(41, 98, 255) -> binding.radioButtonBlue.isChecked = true
+            Color.rgb(170, 0, 255) -> binding.radioButtonPurple.isChecked = true
             else -> binding.radioButtonBlack.isChecked = true
         }
     }

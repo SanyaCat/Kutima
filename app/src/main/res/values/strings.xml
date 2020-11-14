@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Habit Manager</string>
-    <string name="nav_header_title">Habit Manager</string>
+    <string name="app_name">Kutima</string>
+    <string name="nav_header_title">Kutima</string>
     <string name="nav_header_subtitle" translatable="false">sasdenyt@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
 

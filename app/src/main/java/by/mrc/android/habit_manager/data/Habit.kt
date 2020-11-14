@@ -8,7 +8,7 @@ data class Habit(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "description") var description: String?,  // description (optional)
-    @ColumnInfo(name = "color") var color: String,
+    @ColumnInfo(name = "color") var color: Int,
     @ColumnInfo(name = "targetTime") var targetTime: Int, // days or weeks
-    @ColumnInfo(name = "progress") val progress: String    // habit progress (mutable map: date-int)
+    @ColumnInfo(name = "progress") var progress: String    // habit progress (mutable map: date-int)
 )

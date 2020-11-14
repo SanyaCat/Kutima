@@ -6,26 +6,19 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavOptions
-//import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import by.mrc.android.habit_manager.databinding.ActivityMainBinding
-//import by.mrc.android.habit_manager.databinding.ActivityMainBinding
 import by.mrc.android.habit_manager.settings.SettingsThemeEnum
 import by.mrc.android.habit_manager.settings.SettingsValues
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import java.io.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -60,15 +53,13 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setupWithNavController(navController)
 
         try {
-            sharedPref = getSharedPreferences("settings_values", Context.MODE_APPEND)
+            sharedPref = getSharedPreferences("by.mrc.android.habit_manager", Context.MODE_APPEND)
             gsonBuilder = GsonBuilder()
             gson = gsonBuilder.create()
             val value = gson.fromJson(sharedPref.getString("SETTINGS", ""), SettingsValues::class.java)
             SettingsValues.theme = value.theme
         } catch (e: Exception) {
             SettingsValues.theme = SettingsThemeEnum.GREEN
-        } finally {
-//            ois.close()
         }
 
         // Themes
@@ -77,65 +68,22 @@ class MainActivity : AppCompatActivity() {
                 setTheme(R.style.Theme_Green)
                 toolbar.background = getDrawable(R.color.greenPrimary)
                 binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_green)
-                binding.drawerLayout.background = getDrawable(R.color.lightBackground)
-                binding.navView.background = getDrawable(R.color.lightBackground)
-                binding.navView.itemTextColor = getColorStateList(R.color.lightText)
-                binding.navView.itemIconTintList = getColorStateList(R.color.lightText)
-            }
-            SettingsThemeEnum.DARK_GREEN -> {
-                setTheme(R.style.Theme_Dark_Green)
-                toolbar.background = getDrawable(R.color.greenPrimary)
-                binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_green)
-//                binding.drawerLayout.background = getDrawable(R.color.darkBackground)
-//                binding.navView.background = getDrawable(R.color.darkBackground)
-//                binding.navView.itemTextColor = getColorStateList(R.color.darkText)
-//                binding.navView.itemIconTintList = getColorStateList(R.color.darkText)
             }
             SettingsThemeEnum.ORANGE -> {
                 setTheme(R.style.Theme_Orange)
                 toolbar.background = getDrawable(R.color.orangePrimary)
                 binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_orange)
-                binding.drawerLayout.background = getDrawable(R.color.lightBackground)
-                binding.navView.background = getDrawable(R.color.lightBackground)
-                binding.navView.itemTextColor = getColorStateList(R.color.lightText)
-                binding.navView.itemIconTintList = getColorStateList(R.color.lightText)
-            }
-            SettingsThemeEnum.DARK_ORANGE -> {
-                setTheme(R.style.Theme_Dark_Orange)
-                toolbar.background = getDrawable(R.color.orangePrimary)
-                binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_orange)
-//                binding.drawerLayout.background = getDrawable(R.color.darkBackground)
-//                binding.navView.background = getDrawable(R.color.darkBackground)
-//                binding.navView.itemTextColor = getColorStateList(R.color.darkText)
-//                binding.navView.itemIconTintList = getColorStateList(R.color.darkText)
             }
             SettingsThemeEnum.PURPLE -> {
                 setTheme(R.style.Theme_Purple)
                 toolbar.background = getDrawable(R.color.purplePrimary)
                 binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_purple)
-                binding.drawerLayout.background = getDrawable(R.color.lightBackground)
-                binding.navView.background = getDrawable(R.color.lightBackground)
-                binding.navView.itemTextColor = getColorStateList(R.color.lightText)
-                binding.navView.itemIconTintList = getColorStateList(R.color.lightText)
-            }
-            SettingsThemeEnum.DARK_PURPLE -> {
-                setTheme(R.style.Theme_Dark_Purple)
-                toolbar.background = getDrawable(R.color.purplePrimary)
-                binding.navView.getHeaderView(0).background = getDrawable(R.drawable.side_nav_bar_purple)
-//                binding.drawerLayout.background = getDrawable(R.color.darkBackground)
-//                binding.navView.background = getDrawable(R.color.darkBackground)
-//                binding.navView.itemTextColor = getColorStateList(R.color.darkText)
-//                binding.navView.itemIconTintList = getColorStateList(R.color.darkText)
             }
         }
     }
 
-    override fun onDestroy() {
-//        fos = openFileOutput("settings_values", Context.MODE_PRIVATE)
-//        oos = ObjectOutputStream(fos)
-//        oos.writeObject(SettingsValues)
-//        oos.close()
-        sharedPref = getSharedPreferences("settings_values", Context.MODE_PRIVATE)
+    override fun onPause() {
+        sharedPref = getSharedPreferences("by.mrc.android.habit_manager", Context.MODE_PRIVATE)
         editor = sharedPref.edit()
         gsonBuilder = GsonBuilder()
         gson = gsonBuilder.create()
@@ -143,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         editor.putString("SETTINGS", value)
         editor.apply()
 
-        super.onDestroy()
+        super.onPause()
     }
 
     // Creating menu

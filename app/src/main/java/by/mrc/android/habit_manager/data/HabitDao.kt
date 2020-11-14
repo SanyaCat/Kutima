@@ -14,9 +14,6 @@ interface HabitDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(habit: Habit)
 
-//    @Query("UPDATE habit_table SET name = (:name) description = (:description") WHERE id = id")
-//    fun update(id: Int, name: String, description: String?, color: String?, timeToComplete: Int)
-
     @Update
     fun update(habit: Habit)
 

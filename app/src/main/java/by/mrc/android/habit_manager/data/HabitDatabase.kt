@@ -4,11 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(Habit::class), version = 2, exportSchema = false)
+@Database(entities = [Habit::class], version = 2, exportSchema = false)
 abstract class HabitDatabase : RoomDatabase() {
     abstract fun habitDao(): HabitDao
 
@@ -19,8 +16,7 @@ abstract class HabitDatabase : RoomDatabase() {
         private var INSTANCE: HabitDatabase? = null
 
         fun getDatabase(
-            context: Context,
-            coroutineScope: CoroutineScope
+            context: Context
         ): HabitDatabase {
             synchronized(this) {
                 var instance = INSTANCE

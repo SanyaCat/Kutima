@@ -77,6 +77,7 @@ class ListFragment : Fragment() {
         listViewModel.habits.observe(viewLifecycleOwner, Observer {
             it?.let { adapter.submitList(it) }
         })
+        ListViewModel.instance = listViewModel
 
         return binding.root
     }
@@ -109,7 +110,7 @@ class ListFragment : Fragment() {
                         id = id,
                         name = EditHabitFragment.name.toString(),
                         description = EditHabitFragment.description.toString(),
-                        color = EditHabitFragment.color.toString(),
+                        color = EditHabitFragment.color!!,
                         targetTime = EditHabitFragment.targetTime!!,
                         progress = gson.toJson(MutableList(0) { Date(0) })
                 ) )

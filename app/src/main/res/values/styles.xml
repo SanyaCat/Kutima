@@ -1,44 +1,18 @@
 <resources>
 
-    <style name="Theme_Light" parent="Theme.AppCompat.Light">
-        <item name="android:textColor">@color/lightText</item>
-    </style>
-
-    <style name="Theme_Dark" parent="Theme.AppCompat.NoActionBar">
-<!--        <item name="android:textColor">@color/darkText</item>-->
-    </style>
-
-    <style name="Theme_Green" parent="Theme_Light">
+    <style name="Theme_Green" parent="Theme.AppCompat.DayNight">
         <item name="colorPrimary">@color/greenPrimary</item>
         <item name="colorPrimaryDark">@color/greenPrimaryDark</item>
         <item name="colorAccent">@color/greenAccent</item>
     </style>
 
-    <style name="Theme_Dark_Green" parent="Theme_Dark">
-        <item name="colorPrimary">@color/greenPrimary</item>
-        <item name="colorPrimaryDark">@color/greenPrimaryDark</item>
-        <item name="colorAccent">@color/greenAccent</item>
-    </style>
-
-    <style name="Theme_Orange" parent="Theme_Light">
+    <style name="Theme_Orange" parent="Theme.AppCompat.DayNight">
         <item name="colorPrimary">@color/orangePrimary</item>
         <item name="colorPrimaryDark">@color/orangePrimaryDark</item>
         <item name="colorAccent">@color/orangeAccent</item>
     </style>
 
-    <style name="Theme_Dark_Orange" parent="Theme_Dark">
-        <item name="colorPrimary">@color/orangePrimary</item>
-        <item name="colorPrimaryDark">@color/orangePrimaryDark</item>
-        <item name="colorAccent">@color/orangeAccent</item>
-    </style>
-
-    <style name="Theme_Purple" parent="Theme_Light">
-        <item name="colorPrimary">@color/purplePrimary</item>
-        <item name="colorPrimaryDark">@color/purplePrimaryDark</item>
-        <item name="colorAccent">@color/purpleAccent</item>
-    </style>
-
-    <style name="Theme_Dark_Purple" parent="Theme_Dark">
+    <style name="Theme_Purple" parent="Theme.AppCompat.DayNight">
         <item name="colorPrimary">@color/purplePrimary</item>
         <item name="colorPrimaryDark">@color/purplePrimaryDark</item>
         <item name="colorAccent">@color/purpleAccent</item>
